@@ -67,8 +67,8 @@ public class AdapterListBasic extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             Simulacao p = items.get(position);
             view.vezes.setText(p.vezes.toString().concat(" X"));
-            view.total.setText(p.valor.toString());
-            view.parcela.setText(p.parcela.toString());
+            view.total.setText("Valor:  ".concat(formataValor(p.valor)));
+            view.parcela.setText("Parcela:  ".concat(formataValor(p.parcela)));
         }
     }
 
