@@ -1,9 +1,11 @@
 package br.com.wiguia.pagmoby.simulador
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -38,6 +40,7 @@ class FirstFragment : Fragment() {
             if (amount == "") {
                 toastIconError()
             } else {
+                hideSoftKeyBoard(view)
                 Navigation.findNavController(view).navigate(
                     R.id.action_FirstFragment_to_SecondFragment,
                     bundle
@@ -59,5 +62,16 @@ class FirstFragment : Fragment() {
         )
         toast.setView(custom_view)
         toast.show()
+    }
+
+    fun hideSoftKeyBoard(view: View) {
+        try {
+            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+        } catch (e: Exception) {
+            // TODO: handle exception
+            e.printStackTrace()
+        }
+
     }
 }
