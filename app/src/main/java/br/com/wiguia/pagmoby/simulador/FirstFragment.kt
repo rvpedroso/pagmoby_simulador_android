@@ -1,15 +1,17 @@
 package br.com.wiguia.pagmoby.simulador
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**
@@ -18,8 +20,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class FirstFragment : Fragment() {
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_first, container, false)
@@ -33,9 +35,29 @@ class FirstFragment : Fragment() {
             val amount = amountTv.text.toString()
             val bundle = bundleOf("valor" to amount)
 
-            Navigation.findNavController(view).navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
-
-
+            if (amount == "") {
+                toastIconError()
+            } else {
+                Navigation.findNavController(view).navigate(
+                    R.id.action_FirstFragment_to_SecondFragment,
+                    bundle
+                )
+            }
         }
+    }
+
+    private fun toastIconError() {
+        val toast = Toast(context)
+        toast.duration = Toast.LENGTH_LONG
+
+        //inflate view
+        val custom_view: View = layoutInflater.inflate(R.layout.toast_icon_text, null)
+        (custom_view.findViewById<View>(R.id.message) as TextView).text = "Digite um valor"
+        (custom_view.findViewById<View>(R.id.icon) as ImageView).setImageResource(R.drawable.ic_close)
+        (custom_view.findViewById<View>(R.id.parent_view) as CardView).setCardBackgroundColor(
+            resources.getColor(R.color.red_600)
+        )
+        toast.setView(custom_view)
+        toast.show()
     }
 }
