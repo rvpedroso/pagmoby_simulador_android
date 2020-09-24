@@ -12,6 +12,7 @@ import br.com.wiguia.pagmoby.simulador.adapter.AdapterListBasic
 import br.com.wiguia.pagmoby.simulador.model.Simulacao
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.*
 
 /**
@@ -21,6 +22,7 @@ class SecondFragment : Fragment() {
 
     private var recyclerView: RecyclerView? = null
     private var mAdapter: AdapterListBasic? = null
+    private val items = ArrayList<Simulacao>()
 
     private var valor = 0;
 
@@ -37,6 +39,7 @@ class SecondFragment : Fragment() {
 
         valor = 1000
         initComponent()
+        addList()
 
         view.findViewById<FloatingActionButton>(R.id.button_second).setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
@@ -48,23 +51,32 @@ class SecondFragment : Fragment() {
         recyclerView!!.layoutManager = LinearLayoutManager(context)
         recyclerView!!.setHasFixedSize(true)
 
-        val items = ArrayList<Simulacao>()
-        val obj = Simulacao()
-        obj.parcela = BigDecimal(1000)
-        obj.valor = BigDecimal(1000)
-        obj.vezes = 1
-
-        val obj2 = Simulacao()
-        obj2.parcela = BigDecimal(500)
-        obj2.valor = BigDecimal(500)
-        obj2.vezes = 2
-        items.add(obj)
-        items.add(obj2)
-
-        //set data and list adapter
         mAdapter = AdapterListBasic(context, items)
         recyclerView!!.adapter = mAdapter
     }
 
+
+    private fun addList() {
+        val juros: Array<String> = resources.getStringArray(R.array.juros)
+
+        for (i in 1 until juros.size) {
+            val obj = Simulacao()
+            obj.vezes = i
+            obj.valor = calculo(i, juros.get(i))
+            obj.parcela = obj.valor / i.toBigDecimal()
+
+            items.add(obj)
+        }
+
+    }
+
+
+    private fun calculo(vezes: Int, juros: String): BigDecimal {
+        val valorFloat = valor.toFloat()
+        val jurosFloat = juros.toFloat()
+        val resultado = valorFloat / (1.00 - jurosFloat / 100)
+        val b = BigDecimal(resultado)
+        return b.setScale(2, RoundingMode.CEILING)
+    }
 
 }

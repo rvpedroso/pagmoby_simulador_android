@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <integer-array name="juros">
-<!--        <item>@drawable/image_1</item>-->
-    </integer-array>
+    <string-array name="juros">
+        <item>1</item>
+        <item>3.99</item>//1
+        <item>5.99</item>//2
+        <item>6.96</item>//3
+        <item>7.92</item>//4
+        <item>8.88</item>//5
+        <item>9.85</item>//6
+        <item>10.81</item>//7
+        <item>11.78</item>//8
+        <item>12.74</item>//9
+        <item>13.71</item>//10
+        <item>14.67</item>//11
+        <item>15.63</item>//12
+    </string-array>
 
 
 </resources>
