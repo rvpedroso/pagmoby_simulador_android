@@ -9,4 +9,7 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="txt_valor">Valor: </string>
+    <string name="txt_parcela">"Parcela: </string>
+    <string name="txt_vezes"> X</string>
 </resources>
