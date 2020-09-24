@@ -24,20 +24,20 @@ class SecondFragment : Fragment() {
     private var mAdapter: AdapterListBasic? = null
     private val items = ArrayList<Simulacao>()
 
-    private var valor = 0;
+    private var valor = BigDecimal(0);
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        valor = arguments?.getString("valor")?.toBigDecimal() ?: BigDecimal(0)
         return inflater.inflate(R.layout.fragment_second, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        valor = 1000
         initComponent()
         addList()
 

@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -26,7 +29,13 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            val amountTv: EditText = requireView().findViewById(R.id.et_search)
+            val amount = amountTv.text.toString()
+            val bundle = bundleOf("valor" to amount)
+
+            Navigation.findNavController(view).navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
+
+
         }
     }
 }
